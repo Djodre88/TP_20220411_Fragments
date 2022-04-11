@@ -68,18 +68,23 @@ public class Fragment1 extends Fragment {
         Log.d("Fragment1", "Le fragment est détruit");
     }
 
+    // Quand l'utilisateur quitte le fragment,
+    // c'est là que l'on commit tous les changements qui doivent persister
     @Override
     public void onPause() {
         super.onPause();
         Log.d("Fragment1", "Le fragment est en pause");
     }
 
+    // Le fragment est détruit après l'appel à cette méthode
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Log.d("Fragment1", "La View est détruite");
     }
 
+    // L'instance du fragment est associé avec une instance d'activité
+    // Le fragment et l'activité ne sont pas complètement initialisés
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
