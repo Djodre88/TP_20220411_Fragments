@@ -1,5 +1,6 @@
 package com.example.tp_20220411_fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -12,10 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
 public class Fragment1 extends Fragment {
+
+    Activity activity;
+    Communication communication = null;
+    EditText editTextName;
 
     public Fragment1() {
         // Required empty public constructor
@@ -27,11 +33,13 @@ public class Fragment1 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_1, container, false);
         Button button = view.findViewById(R.id.button);
+        editTextName = view.findViewById(R.id.editTextName);
         Log.d("Fragment1", "View créée");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Fallait aller voter !", Toast.LENGTH_LONG).show();
+                //communication.send(editTextName.getText().toString());
+                Toast.makeText(activity, "Fallait aller voter !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -88,6 +96,15 @@ public class Fragment1 extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        activity = (Activity) context;
+
+        if (activity instanceof Communication) { communication = (Communication) activity; }
+
         Log.d("Fragment1", "Le fragment est attaché à l'activité");
+    }
+
+    interface Communication {
+        public void send(String name);
+
     }
 }
